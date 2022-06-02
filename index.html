@@ -33,7 +33,7 @@
         <div class="col-md-4">
           <div class="withdraw status">
             <h5>Withdraw</h5>
-          <h2>$00</h2>
+          <h2>$<span id="currentWithdraw" >00</span></h2>
           </div>
         </div>
         <div class="col-md-4">
@@ -86,28 +86,30 @@
       depositBtn.addEventListener("click", function(){
         const depositNumber = getInputNumber("depositAmount");
 
-        uploadSapanText("currentDeposit", depositNumber);
-        uploadSapanText("currentBalance", depositNumber);
+       updateSpanText("currentDeposit", depositNumber);
+       updateSpanText("currentBalance", depositNumber);
 
         document.getElementById("depositAmount").value = "";
         //withdraw
         const withdrawBtn = document.getElementById("addWithdraw");
         withdrawBtn.addEventListener("click", function(){
           const withdrawNumber = getInputNumber("withdrawAmount");
-          console.log(withdrawNumber);
+          
+         updateSpanText("currentWithdraw", withdrawNumber);
+         updateSpanText("currentBalance", -1 * withdrawNumber);
         })
         function getInputNumber(id){
-          const Amount = document.getElementById(id).value;
-          const AmountNumber = parseFloat(Amount);
-          return AmountNumber;
+          const amount = document.getElementById(id).value;
+          const amountNumber = parseFloat(amount);
+          return amountNumber;
 
         }
       })
-      function uploadSapanText(id, depositNumber){
+      function updateSpanText(id, depositNumber){
         const current = document.getElementById(id).innerText;
         const currentNumber = parseFloat(current);
-        const total= depositNumber + currentNumber;
-        document.getElementById(id).innerText = total;
+        const totalAmount= depositNumber + currentNumber;
+        document.getElementById(id).innerText = totalAmount;
 
       }
 
